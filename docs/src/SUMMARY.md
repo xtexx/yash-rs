@@ -4,33 +4,26 @@
 
 # User manual
 
-- [Installation]()
-- [Getting started]()
-<!--
-    - Using the shell interactively
-    - Running scripts
--->
-- [Shell language]()
-    - [Invoking utilities]()
-    - [Words, tokens, and fields]()
-        - [Reserved words]()
-        - [Quoting and escaping]()
-        - [Comments]()
-        - [Tilde expansion]()
-        - [Parameter expansion]()
-        - [Command substitution]()
-        - [Arithmetic expansion]()
-        - [Field splitting]()
-        - [Pathname expansion]()
-        - [Quote removal]()
-    - [Parameters]()
-        - [Variables]()
-            - [Arrays]()
-        - [Special parameters]()
-        - [Positional parameters]()
+- [Installation](installation.md)
+- [Getting started](getting_started.md)
+- [Versioning and compatibility]() <!-- POSIX conformance -->
+- [Shell language](language/README.md)
+    - [Words, tokens, and fields](language/words/README.md)
+        - [Quoting and escaping](language/words/quoting.md)
+        - [Reserved words](language/words/keywords.md)
+        - [Comments](language/words/comments.md)
+        - [Tilde expansion](language/words/tilde.md)
+        - [Parameter expansion](language/words/parameters.md)
+        - [Command substitution](language/words/command_substitution.md)
+        - [Arithmetic expansion](language/words/arithmetic.md) <!-- TODO: Brace expansion -->
+        - [Field splitting](language/words/field_splitting.md)
+        - [Pathname expansion](language/words/globbing.md)
+    - [Parameters](language/parameters/README.md)
+        - [Variables](language/parameters/variables.md)
+        - [Special parameters](language/parameters/special.md)
+        - [Positional parameters](language/parameters/positional.md)
     - [Commands]()
-        - [Assignment]()
-        - [Simple command details]()
+        - [Simple commands](language/commands/simple.md)
         - [Pipelines]()
         - [Compound commands]()
             - [Grouping]() <!-- incl. subshells -->
@@ -48,10 +41,6 @@
 - [Shell options]()
 - [Shell environment and subshells]()
 - [Signals and traps]()
-- [Interactive shell]()
-    - [Command prompt]()
-    - [Job control]()
-- [Script debugging]() <!-- errexit, noexec, xtrace, etc. -->
 - [Built-in utilities]()
     - [. (dot)]()
     - [: (colon)]()
@@ -87,4 +76,10 @@
     - [unalias]()
     - [unset]()
     - [wait]()
+- [Interactive shell]()
+    - [Command prompt]()
+    - [Job control]()
+- [Script debugging]() <!-- errexit, noexec, xtrace, etc. -->
+- [Pattern matching](patterns.md)
+- [Arithmetic expressions](arithmetic.md)
 - [FAQ and troubleshooting]()
