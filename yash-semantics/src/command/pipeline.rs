@@ -137,7 +137,7 @@ async fn execute_job_controlled_pipeline(
         }
         Err(errno) => {
             // TODO print error location using yash_env::io::print_error
-            let message = format!("cannot start a subshell in the pipeline: {}\n", errno);
+            let message = format!("cannot start a subshell in the pipeline: {errno}\n");
             env.system.print_error(&message).await;
             Break(Divert::Interrupt(Some(ExitStatus::NOEXEC)))
         }
@@ -191,7 +191,7 @@ async fn shift_or_fail(env: &mut Env, pipes: &mut PipeSet, has_next: bool) -> Re
         Ok(()) => Continue(()),
         Err(errno) => {
             // TODO print error location using yash_env::io::print_error
-            let message = format!("cannot connect pipes in the pipeline: {}\n", errno);
+            let message = format!("cannot connect pipes in the pipeline: {errno}\n");
             env.system.print_error(&message).await;
             Break(Divert::Interrupt(Some(ExitStatus::NOEXEC)))
         }
@@ -207,7 +207,7 @@ async fn connect_pipe_and_execute_command(
         Ok(()) => (),
         Err(errno) => {
             // TODO print error location using yash_env::io::print_error
-            let message = format!("cannot connect pipes in the pipeline: {}\n", errno);
+            let message = format!("cannot connect pipes in the pipeline: {errno}\n");
             env.system.print_error(&message).await;
             return Break(Divert::Interrupt(Some(ExitStatus::NOEXEC)));
         }
@@ -229,8 +229,7 @@ async fn pid_or_fail(
             // TODO print error location using yash_env::io::print_error
             env.system
                 .print_error(&format!(
-                    "cannot start a subshell in the pipeline: {}\n",
-                    errno
+                    "cannot start a subshell in the pipeline: {errno}\n"
                 ))
                 .await;
             Break(Divert::Interrupt(Some(ExitStatus::NOEXEC)))
@@ -378,7 +377,7 @@ mod tests {
             env.builtins.insert("return", return_builtin());
             let pipeline: syntax::Pipeline =
                 "return -n 1 | return -n 2 | return -n 3".parse().unwrap();
-            pipeline.execute(&mut env).await;
+            _ = pipeline.execute(&mut env).await;
 
             // Only the original process remains.
             for (pid, process) in &state.borrow().processes {
@@ -400,7 +399,7 @@ mod tests {
             env.builtins.insert("return", return_builtin());
 
             let list: syntax::List = "return -n 7&".parse().unwrap();
-            list.execute(&mut env).await;
+            _ = list.execute(&mut env).await;
             let async_pid = {
                 let state = state.borrow();
                 let mut iter = state.processes.keys();
@@ -412,7 +411,7 @@ mod tests {
 
             let pipeline: syntax::Pipeline =
                 "return -n 1 | return -n 2 | return -n 3".parse().unwrap();
-            pipeline.execute(&mut env).await;
+            _ = pipeline.execute(&mut env).await;
 
             let state = state.borrow();
             let process = &state.processes[&async_pid];

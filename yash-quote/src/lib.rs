@@ -167,7 +167,6 @@ impl<'a> From<&'a str> for Quoted<'a> {
 
 /// Constructs a quoted string.
 impl<'a> From<Quoted<'a>> for Cow<'a, str> {
-    #[must_use]
     fn from(q: Quoted<'a>) -> Self {
         if q.needs_quoting() {
             Owned(q.to_string())
@@ -226,7 +225,7 @@ mod tests {
     #[test]
     fn single_quoted() {
         fn test(s: &str) {
-            assert_eq!(quote(s), Owned::<str>(format!("'{}'", s)));
+            assert_eq!(quote(s), Owned::<str>(format!("'{s}'")));
         }
         test("");
         for c in ";&|()<> \t\n\u{3000}$`\\\"=*?#~".chars() {
